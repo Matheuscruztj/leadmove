@@ -1,0 +1,1 @@
+mkdir -p /tmp/video_preview
