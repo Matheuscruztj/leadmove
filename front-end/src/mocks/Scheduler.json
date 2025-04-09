@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "postType": "Post",
+    "date": "2025-04-10",
+    "time": "14:00",
+    "image": "https://via.placeholder.com/150",
+    "action": "delete"
+  },
+  {
+    "id": 2,
+    "postType": "Reels",
+    "date": "2025-04-12",
+    "time": "10:00",
+    "image": "https://via.placeholder.com/150",
+    "action": "delete"
+  },
+  {
+    "id": 3,
+    "postType": "Story",
+    "date": "2025-04-15",
+    "time": "18:30",
+    "image": "https://via.placeholder.com/150",
+    "action": "delete"
+  }
+]
