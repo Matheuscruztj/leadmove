@@ -36,7 +36,7 @@ export default defineComponent({
     const isCollapsed = ref(false);
     const menuItems = [
       { name: 'Home', icon: HomeIcon, href: '/' },
-      { name: 'Scheduler', icon: CalendarIcon, href: '/scheduler' },
+      { name: 'Scheduler', icon: CalendarIcon, href: '/schedule' },
       { name: 'Post', icon: PencilIcon, href: '/post' },
       { name: 'User', icon: UserIcon, href: '/user' },
       { name: 'Setting', icon: CogIcon, href: '/setting' },
