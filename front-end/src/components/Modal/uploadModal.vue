@@ -1,13 +1,13 @@
 <template>
   <Modal :show="show" @close="closeModal">
     <template #header>
-      <h2 class="text-lg font-bold text-purple-800">Configurações de Upload</h2>
+      <h2 class="text-lg font-bold text-purple-800">{{ $t('post.settingsUpload') }}</h2>
     </template>
     <template #content>
       <div class="flex flex-wrap md:flex-nowrap gap-4">
         <!-- Preview -->
         <div class="flex-1 flex flex-col items-center">
-          <p class="text-purple-800 mb-4">Preview do arquivo</p>
+          <p class="text-purple-800 mb-4">{{ $t('post.Preview') }}</p>
           <div v-if="previewUrl" class="w-full flex flex-col items-center">
             <img
               v-if="previewUrl"
@@ -51,18 +51,18 @@
         <div class="flex-1">
           <form @submit.prevent="submitForm" class="flex flex-col gap-4 mt-10">
             <div class="flex justify-between items-center">
-              <span>Aplicar Filtro</span>
+              <span>{{ $t('post.applyFilter') }}</span>
               <Toggle v-model="toggleFilter" />
             </div>
 
             <div class="flex justify-between items-center">
-              <span>Agendamento</span>
+              <span>{{ $t('post.schedule') }}</span>
               <Toggle v-model="toggleAutoPost" />
             </div>
 
             <div v-if="toggleAutoPost" class="flex flex-col gap-4 mt-2">
               <div>
-                <label for="scheduleDate" class="flex text-sm font-medium justify-start text-gray-700">Data</label>
+                <label for="scheduleDate" class="flex text-sm font-medium justify-start text-gray-700">{{ $t('post.date') }}</label>
                 <input
                   type="date"
                   id="scheduleDate"
@@ -71,7 +71,7 @@
                 />
               </div>
               <div>
-                <label for="scheduleTime" class="flex text-sm font-medium justify-start text-gray-700">Hora</label>
+                <label for="scheduleTime" class="flex text-sm font-medium justify-start text-gray-700">{{ $t('post.hour') }}</label>
                 <input
                   type="time"
                   id="scheduleTime"
@@ -81,12 +81,12 @@
               </div>
             </div>
             <div class="flex justify-between items-center">
-              <span>Comentário</span>
+              <span>{{ $t('post.commentary') }}</span>
               <Toggle v-model="toggleComment" />
             </div>
             <div v-if="toggleComment" class="flex flex-col gap-4 mt-2">
               <div>
-                <label for="comment" class="flex text-sm font-medium justify-start text-gray-700">Comentário</label>
+                <label for="comment" class="flex text-sm font-medium justify-start text-gray-700">{{ $t('post.commentary') }}</label>
                 <textarea
                   id="comment"
                   v-model="comment"
@@ -103,8 +103,8 @@
     <template #buttons>
       <div class="w-full flex justify-end">
         <div class="flex gap-2">
-          <Button @click="closeModal" class="bg-red-800 text-white px-4 py-2 rounded">Cancelar</Button>
-          <Button v-if="!isScheduling" @click="goToSchedule" class="vibrant-orange text-white px-4 py-2 rounded">Upload</Button>
+          <Button @click="closeModal" class="bg-red-800 text-white px-4 py-2 rounded">{{ $t('post.cancel') }}</Button>
+          <Button v-if="!isScheduling" @click="goToSchedule" class="vibrant-orange text-white px-4 py-2 rounded">{{ $t('post.createPost') }}</Button>
         </div>
       </div>
     </template>

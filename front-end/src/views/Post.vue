@@ -7,16 +7,16 @@
     <div class="top-8 relative">
       <CardComponent>
         <template #title>
-          <h1 class="relative justify-center flex text-purple-800">Criar Post</h1>
+          <h1 class="relative justify-center flex text-purple-800">{{ $t('post.createPost') }}</h1>
         </template>
         
         <div id="upload">
           <input type="file" accept="video/*,image/*"  @change="handleFileChange" class="w-3 p-2 rounded mb-4 shadow-2xl " />
-          Clique para upload
+          {{ $t('post.clickToUpload') }}
         </div>
 
         <template #footer>
-          <p class="text-purple-800 flex justify-center">Arraste e solte o arquivo ou clique para selecionar</p> 
+          <p class="text-purple-800 flex justify-center">{{ $t('post.dragAndDrop') }}</p> 
         </template>
       </CardComponent>
       
