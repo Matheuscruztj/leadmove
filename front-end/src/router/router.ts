@@ -1,18 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'; 
-import Home from '../views/Home.vue';
+import Post from '../views/Post.vue';
 import User from '../views/User.vue';
-import Scheduler from '../views/scheduler/schedule.vue';
+import Dashboard from '../views/Dashboard/Dashboard.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home
+    name: 'dashboard',
+    component: Dashboard
   },
   {
-    path: '/schedule',
-    name: 'schedule',
-    component: Scheduler
+    path: '/post',
+    name: 'post',
+    component: Post
   },
   {
     path: '/user',
