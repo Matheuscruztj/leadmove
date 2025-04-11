@@ -1,13 +1,13 @@
 <template>
   <Modal :show="show" @close="closeModal">
     <template #header>
-      <h2 class="text-lg font-bold text-purple-800">{{ $t('post.settingsUpload') }}</h2>
+      <h2 class="text-lg font-bold text-gray-700">{{ $t('post.settingsUpload') }}</h2>
     </template>
     <template #content>
       <div class="flex flex-wrap md:flex-nowrap gap-4">
         <!-- Preview -->
         <div class="flex-1 flex flex-col items-center">
-          <p class="text-purple-800 mb-4">{{ $t('post.Preview') }}</p>
+          <p class="text-g mb-4">{{ $t('post.preview') }}</p>
           <div v-if="previewUrl" class="w-full flex flex-col items-center">
             <img
               v-if="previewUrl"
@@ -19,8 +19,8 @@
               <button 
                 @click="togglePost = !togglePost"
                 :class="[
-                  'px-4 py-2 rounded-lg transition-colors',
-                  togglePost ? 'bg-purple-800 text-white' : 'bg-gray-200 text-gray-700'
+                  'px-4 py-2 rounded-lg transition-colors cursor-pointer',
+                  togglePost ? 'bg-yellow-600 text-white' : 'bg-gray-200 text-gray-700'
                 ]"
               >
                 Feed
@@ -28,8 +28,8 @@
               <button 
                 @click="toggleStory = !toggleStory"
                 :class="[
-                  'px-4 py-2 rounded-lg transition-colors',
-                  toggleStory ? 'bg-purple-800 text-white' : 'bg-gray-200 text-gray-700'
+                  'px-4 py-2 rounded-lg transition-colors cursor-pointer',
+                  toggleStory ? 'bg-yellow-600 text-white' : 'bg-gray-200 text-gray-700'
                 ]"
               >
                 Stories
@@ -37,8 +37,8 @@
               <button 
                 @click="toggleReels = !toggleReels"
                 :class="[
-                  'px-4 py-2 rounded-lg transition-colors',
-                  toggleReels ? 'bg-purple-800 text-white' : 'bg-gray-200 text-gray-700'
+                  'px-4 py-2 rounded-lg transition-colors cursor-pointer',
+                  toggleReels ? 'bg-yellow-600 text-white' : 'bg-gray-200 text-gray-700'
                 ]"
               >
                 Reels
@@ -51,12 +51,12 @@
         <div class="flex-1">
           <form @submit.prevent="submitForm" class="flex flex-col gap-4 mt-10">
             <div class="flex justify-between items-center">
-              <span>{{ $t('post.applyFilter') }}</span>
+              <span class="text-gray-700">{{ $t('post.applyFilter') }}</span>
               <Toggle v-model="toggleFilter" />
             </div>
 
             <div class="flex justify-between items-center">
-              <span>{{ $t('post.schedule') }}</span>
+              <span class="text-gray-700">{{ $t('post.schedule') }}</span>
               <Toggle v-model="toggleAutoPost" />
             </div>
 
@@ -67,7 +67,7 @@
                   type="date"
                   id="scheduleDate"
                   v-model="scheduleDate"
-                  class="mt-1 block w-full p-1 outline-0 border-gray-300 rounded-md shadow-sm focus:ring focus:border-gray-500 dark:bg-gray-200 dark:border-purple-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-purple-500 dark:focus:border-purple-500"
+                  class="mt-1 block w-full p-1 outline-0 border-gray-300 rounded-md shadow-sm focus:ring focus:border-gray-500 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-700 dark:focus:ring-gray-400 dark:focus:border-gray-400"
                 />
               </div>
               <div>
@@ -76,12 +76,12 @@
                   type="time"
                   id="scheduleTime"
                   v-model="scheduleTime"
-                  class="mt-1 block w-full p-1 outline-0 border-gray-300 rounded-md shadow-sm focus:ring focus:border-gray-500 dark:bg-gray-200 dark:border-purple-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-purple-500 dark:focus:border-purple-500"
+                  class="mt-1 block w-full p-1 outline-0 border-gray-300 rounded-md shadow-sm focus:ring focus:border-gray-500 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-gray-400 dark:focus:border-gray-400"
                 />
               </div>
             </div>
             <div class="flex justify-between items-center">
-              <span>{{ $t('post.commentary') }}</span>
+              <span class="text-gray-700">{{ $t('post.commentary') }}</span>
               <Toggle v-model="toggleComment" />
             </div>
             <div v-if="toggleComment" class="flex flex-col gap-4 mt-2">
@@ -90,7 +90,8 @@
                 <textarea
                   id="comment"
                   v-model="comment"
-                  rows="4" class="block p-2.5 w-full text-sm text-black bg-gray-50 rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                  rows="4" 
+                  class="mt-1 block p-2.5 w-full text-sm text-gray-700 bg-gray-50 rounded-lg border border-none shadow-2xs dark:placeholder-gray-400 dark:text-black " 
                   placeholder="Write your thoughts here..."
                 ></textarea
                 </div>
@@ -103,8 +104,8 @@
     <template #buttons>
       <div class="w-full flex justify-end">
         <div class="flex gap-2">
-          <Button @click="closeModal" class="bg-red-800 text-white px-4 py-2 rounded">{{ $t('post.cancel') }}</Button>
-          <Button v-if="!isScheduling" @click="goToSchedule" class="vibrant-orange text-white px-4 py-2 rounded">{{ $t('post.createPost') }}</Button>
+          <Button @click="closeModal" class="bg-red-700 hover:bg-red-800 text-white px-4 py-2 rounded">{{ $t('post.cancel') }}</Button>
+          <Button v-if="!isScheduling" @click="goToSchedule" class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded">{{ $t('post.createPost') }}</Button>
         </div>
       </div>
     </template>

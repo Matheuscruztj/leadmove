@@ -3,7 +3,7 @@
     <div class="top-8 relative">
       <CardComponent>
         <template #title>
-          <h1 class="font-bold text-xl mb-2 text-gray-600">Agendamento</h1>
+          <h1 class="font-bold text-lg mb-4 text-yellow-600">{{ $t('table.title') }}</h1>
         </template>
         <Table>
           <template #header>
@@ -12,16 +12,18 @@
             <th class="px-4 py-2">{{ $t('table.date') }}</th>
             <th class="px-4 py-2">{{ $t('table.time') }}</th>
             <th class="px-4 py-2">{{ $t('table.post') }}</th>
+            <th class="px-4 py-2">{{ $t('table.status') }}</th>
             <th class="px-4 py-2">{{ $t('table.actions') }}</th>
           </template>
 
           <template #body>
             <tr v-for="item in scheduler" :key="item.id" class="border-b">
-              <td class="px-4 py-2 text-purple-800">{{ item.id }}</td>
-              <td class="px-4 py-2 text-purple-800">{{ item.type }}</td>
-              <td class="px-4 py-2 text-purple-800">{{ item.date }}</td>
-              <td class="px-4 py-2 text-purple-800">{{ item.time }}</td>
-              <td class="px-4 py-2 text-purple-800">{{ item.post }}</td>
+              <td class="px-4 py-2 text-black">{{ item.id }}</td>
+              <td class="px-4 py-2 text-black">{{ item.type }}</td>
+              <td class="px-4 py-2 text-black">{{ item.date }}</td>
+              <td class="px-4 py-2 text-black">{{ item.time }}</td>
+              <td class="px-4 py-2 text-black">{{ item.post }}</td>
+              <td class="px-4 py-2 font-bold" :class="getStatusColor(item.status)">{{ $t(`table.${item.status}`) }}</td>
               <td class="px-4 py-2 text-purple-800">
                 <Button @click="deleteScheduler(item.id)">
                   <svg
@@ -50,7 +52,7 @@
 </template>
 
 <script lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import CardComponent from '../../components/Card/CardComponent.vue';
 import Table from '../../components/Table.vue';
 import mockScheduler from '../../mocks/scheduler.json'; // Adjust the path as necessary
@@ -62,6 +64,7 @@ type Scheduler = {
   date: string;
   time: string;
   post: string;
+  status: string;
 };
 
 export default {
@@ -72,6 +75,11 @@ export default {
   },
   setup(){
     const scheduler = ref<Scheduler[]>([]);
+    const statusColors = {
+      scheduled: 'text-green-600',
+      canceled: 'text-red-600',
+      posted: 'text-orange-600'
+    } as const;
 
     const fetchScheduler = async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay
@@ -81,12 +89,17 @@ export default {
         date: format(new Date(item.date), 'dd/MM/yyyy'),
         time: item.time,
         post: item.image,
+        status: item.status,
       }));
     }
 
     const deleteScheduler = (id: number) => {
       scheduler.value = scheduler.value.filter((item) => item.id !== id);
     }
+
+    const getStatusColor = (status: string) => {
+      return statusColors[status as keyof typeof statusColors] || 'text-purple-800';
+    };
 
     onMounted(() => {
       fetchScheduler();
@@ -95,6 +108,7 @@ export default {
     return {
       scheduler,
       deleteScheduler,
+      getStatusColor,
     }
   }
 }

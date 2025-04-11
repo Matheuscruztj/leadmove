@@ -7,7 +7,7 @@
     <div class="top-8 relative">
       <CardComponent>
         <template #title>
-          <h1 class="relative justify-center flex text-purple-800">{{ $t('post.createPost') }}</h1>
+          <h1 class="relative justify-center flex text-yellow-600">{{ $t('post.createPost') }}</h1>
         </template>
         
         <div id="upload">
@@ -16,7 +16,7 @@
         </div>
 
         <template #footer>
-          <p class="text-purple-800 flex justify-center">{{ $t('post.dragAndDrop') }}</p> 
+          <p class="text-yellow-600 text-lg flex justify-center">{{ $t('post.dragAndDrop') }}</p> 
         </template>
       </CardComponent>
       
@@ -116,7 +116,7 @@ export default {
   #upload {
     position: relative;
     padding: 10rem;
-    background-color: rgb(117, 5, 117);
+    background-color: #1f2937;
     color: white;
     border-radius: 0.5rem;
     cursor: pointer;
@@ -126,8 +126,8 @@ export default {
   }
 
   #upload:hover {
-    background-color: rgb(94, 4, 94); /* Cor de fundo ao passar o mouse */
-    border-color: #580969; /* Cor da borda ao passar o mouse */
+    background-color: #374151; /* Cor de fundo ao passar o mouse */
+    border-color: #facc15; /* Cor da borda ao passar o mouse */
   }
 
   input {

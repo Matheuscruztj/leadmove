@@ -4,7 +4,7 @@
       <slot name="image"></slot>
     </div>
 
-    <div class="border-r border-b border-l lg:border-l-0 lg:border-t lg:border-none bg-gray-100 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+    <div class="border-r border-b border-l lg:border-l-0 lg:border-t lg:border-none bg-gray-50 rounded-l-lg lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
       <div v-if="$slots.title" class="mb-8">
         <div class="font-bold text-xl mb-2">
           <slot name="title"></slot>
