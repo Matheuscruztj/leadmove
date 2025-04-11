@@ -15,6 +15,35 @@
               alt="Preview"
               class="mt-2 w-56 h-56 object-cover rounded-lg shadow-lg"
             />
+            <div class="mt-4 flex gap-2 justify-end w-full pr-4">
+              <button 
+                @click="togglePost = !togglePost"
+                :class="[
+                  'px-4 py-2 rounded-lg transition-colors',
+                  togglePost ? 'bg-purple-800 text-white' : 'bg-gray-200 text-gray-700'
+                ]"
+              >
+                Feed
+              </button>
+              <button 
+                @click="toggleStory = !toggleStory"
+                :class="[
+                  'px-4 py-2 rounded-lg transition-colors',
+                  toggleStory ? 'bg-purple-800 text-white' : 'bg-gray-200 text-gray-700'
+                ]"
+              >
+                Stories
+              </button>
+              <button 
+                @click="toggleReels = !toggleReels"
+                :class="[
+                  'px-4 py-2 rounded-lg transition-colors',
+                  toggleReels ? 'bg-purple-800 text-white' : 'bg-gray-200 text-gray-700'
+                ]"
+              >
+                Reels
+              </button>
+            </div>
           </div>
         </div>
 
@@ -33,50 +62,49 @@
 
             <div v-if="toggleAutoPost" class="flex flex-col gap-4 mt-2">
               <div>
-                <label for="scheduleDate" class="block text-sm font-medium text-gray-700">Data</label>
+                <label for="scheduleDate" class="flex text-sm font-medium justify-start text-gray-700">Data</label>
                 <input
                   type="date"
                   id="scheduleDate"
                   v-model="scheduleDate"
-                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-purple-500"
+                  class="mt-1 block w-full p-1 outline-0 border-gray-300 rounded-md shadow-sm focus:ring focus:border-gray-500 dark:bg-gray-200 dark:border-purple-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-purple-500 dark:focus:border-purple-500"
                 />
               </div>
               <div>
-                <label for="scheduleTime" class="block text-sm font-medium text-gray-700">Hora</label>
+                <label for="scheduleTime" class="flex text-sm font-medium justify-start text-gray-700">Hora</label>
                 <input
                   type="time"
                   id="scheduleTime"
                   v-model="scheduleTime"
-                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-purple-500"
+                  class="mt-1 block w-full p-1 outline-0 border-gray-300 rounded-md shadow-sm focus:ring focus:border-gray-500 dark:bg-gray-200 dark:border-purple-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-purple-500 dark:focus:border-purple-500"
                 />
               </div>
             </div>
-
             <div class="flex justify-between items-center">
-              <span>Publicar no Feed</span>
-              <Toggle v-model="togglePost" />
+              <span>Comentário</span>
+              <Toggle v-model="toggleComment" />
             </div>
-
-            <div class="flex justify-between items-center">
-              <span>Publicar nos Stories</span>
-              <Toggle v-model="toggleStory" />
-            </div>
-
-            <div class="flex justify-between items-center">
-              <span>Publicar no Reels</span>
-              <Toggle v-model="toggleReels" />
+            <div v-if="toggleComment" class="flex flex-col gap-4 mt-2">
+              <div>
+                <label for="comment" class="flex text-sm font-medium justify-start text-gray-700">Comentário</label>
+                <textarea
+                  id="comment"
+                  v-model="comment"
+                  rows="4" class="block p-2.5 w-full text-sm text-black bg-gray-50 rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                  placeholder="Write your thoughts here..."
+                ></textarea
+                </div>
+              </div>
             </div>
           </form>
         </div>
       </div>
     </template>
     <template #buttons>
-      <div class="flex flex-row items-center space-x-1">
-        <div class="flex items-center">
+      <div class="w-full flex justify-end">
+        <div class="flex gap-2">
           <Button @click="closeModal" class="bg-red-800 text-white px-4 py-2 rounded">Cancelar</Button>
-        </div>
-        <div v-if="!isScheduling" class="flex items-center">
-          <Button @click="goToSchedule" class="vibrant-orange text-white px-4 py-2 rounded">Enviar</Button>
+          <Button v-if="!isScheduling" @click="goToSchedule" class="vibrant-orange text-white px-4 py-2 rounded">Upload</Button>
         </div>
       </div>
     </template>
@@ -117,6 +145,7 @@
         togglePost: false,
         toggleStory: false,
         toggleReels: false,
+        toggleComment: false,
         scheduleDate: '',
         scheduleTime: '',
       };
@@ -129,6 +158,7 @@
         console.log('Form submitted with settings:', {
           toggleFilter: this.toggleFilter,
           toggleAutoPost: this.toggleAutoPost,
+          toggleComment: this.toggleComment,
           togglePost: this.togglePost,
           toggleStory: this.toggleStory,
           toggleReels: this.toggleReels,
@@ -169,3 +199,14 @@
     },
   }
 </script>
+
+<style scoped>
+  #comment {
+    border-radius: 0.5rem;
+    padding: 2rem;
+    background-color: #f3f4f6;
+    outline: 2px solid #d8b4fe;
+    width: 100%;
+    height: 100%;
+  }
+</style>
