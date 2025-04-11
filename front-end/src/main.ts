@@ -1,7 +1,9 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
-import router from './router/router'
-import i18n from './i18n/pt'
+import { setupPlugins } from './plugins'
 
-createApp(App).use(router).use(i18n).mount('#app')
+const app = createApp(App)
+setupPlugins(app)
+
+app.mount('#app')
