@@ -1,36 +1,41 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './db/user.entity';
-import { VideoSchedule } from './db/video-schedule.entity';
-import { UserAddress } from './db/user-address.entity';
-import { Video } from './db/video.entity';
+import { VideoSchedule } from './modules/user/entities/video-schedule.entity';
+import { UserAddress } from './modules/user/entities/user-address.entity';
+import { Video } from './modules/user/entities/video.entity';
+import { UserModule } from './modules/user/user.module';
+import { addTransactionalDataSource } from 'typeorm-transactional';
+import { DataSource } from 'typeorm';
+import { SharedModule } from './shared/services/shared.module';
+import { ApiConfigService } from './shared/services/api-config.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      expandVariables: true,
     }),
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_NAME'),
-        entities: [User, VideoSchedule, UserAddress, Video],
-        synchronize: configService.get<string>('NODE_ENV') === 'development',
-      }),
+      imports: [SharedModule],
+      useFactory: (configService: ApiConfigService) =>
+        configService.postgresConfig,
+      inject: [ApiConfigService],
+      dataSourceFactory: (options) => {
+        if (!options) {
+          throw new Error('Invalid options passed');
+        }
+
+        return Promise.resolve(
+          addTransactionalDataSource(new DataSource(options)),
+        );
+      },
     }),
-    TypeOrmModule.forFeature([User, VideoSchedule, UserAddress, Video]),
+    TypeOrmModule.forFeature([VideoSchedule, UserAddress, Video]),
+    UserModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
   exports: [TypeOrmModule],
 })
 export class AppModule {}

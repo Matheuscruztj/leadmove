@@ -10,39 +10,39 @@ import { User } from './user.entity';
 @Entity('user_addresses')
 export class UserAddress {
   @PrimaryGeneratedColumn({ type: 'bigint' })
-  id: number;
+  id!: number;
 
   @Column({ name: 'user_id', type: 'bigint' })
-  userId: number;
+  userId!: number;
 
   @Column({ name: 'street_address' })
-  streetAddress: string;
+  streetAddress!: string;
 
   @Column({ name: 'address_number' })
-  addressNumber: string;
+  addressNumber!: string;
 
   @Column({ name: 'address_complement', nullable: true })
-  addressComplement: string;
+  addressComplement!: string;
 
   @Column()
-  neighborhood: string;
+  neighborhood!: string;
 
   @Column({ name: 'zip_code' })
-  zipCode: string;
+  zipCode!: string;
 
   @Column()
-  city: string;
+  city!: string;
 
   @Column()
-  state: string;
+  state!: string;
 
   @Column()
-  country: string;
+  country!: string;
 
   @Column({ name: 'is_primary_address', default: false })
-  isPrimaryAddress: boolean;
+  isPrimaryAddress!: boolean;
 
   @ManyToOne(() => User, (user) => user.addresses)
   @JoinColumn({ name: 'user_id' })
-  user: User;
+  user?: User;
 }

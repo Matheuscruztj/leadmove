@@ -20,8 +20,7 @@ export const databaseProviders = [
           await dataSource.initialize();
         }
       } catch (error) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        console.error(error?.message);
+        console.error(error);
       }
       return dataSource;
     },
